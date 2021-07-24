@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import calculateWinner from '../../utils/utils';
 import Square from '../Square';
 
 const Board = (): JSX.Element => {
@@ -6,6 +7,9 @@ const Board = (): JSX.Element => {
 
   const handleClick = (i: number) => {
     const squaresNew = squares.squares.slice();
+    if (calculateWinner(squaresNew) || squaresNew[i]) {
+      return;
+    }
     squaresNew[i] = squares.xIsNext ? 'X' : '0';
     setSquares({ squares: squaresNew, xIsNext: !squares.xIsNext });
   };
@@ -14,7 +18,8 @@ const Board = (): JSX.Element => {
     return <Square value={squares.squares[i]} onClick={() => handleClick(i)} />;
   };
 
-  const status = `Next player: ${squares.xIsNext ? 'X' : '0'}`;
+  const winner = calculateWinner(squares.squares);
+  const status = `${winner ? `Выиграл: ${winner}` : `Следующий ход: ${squares.xIsNext ? 'X' : '0'}`}`;
 
   return (
     <>
