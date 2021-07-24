@@ -1,29 +1,14 @@
-import React, { useState } from 'react';
-import calculateWinner from '../../utils/utils';
+import React from 'react';
+import SquaresBoardProps from '../../types/squaresBoardProps';
 import Square from '../Square';
 
-const Board = (): JSX.Element => {
-  const [squares, setSquares] = useState({ squares: Array(9).fill(''), xIsNext: true });
-
-  const handleClick = (i: number) => {
-    const squaresNew = squares.squares.slice();
-    if (calculateWinner(squaresNew) || squaresNew[i]) {
-      return;
-    }
-    squaresNew[i] = squares.xIsNext ? 'X' : '0';
-    setSquares({ squares: squaresNew, xIsNext: !squares.xIsNext });
-  };
-
+const Board = ({ squares, onClick }: SquaresBoardProps): JSX.Element => {
   const renderSquare = (i: number) => {
-    return <Square value={squares.squares[i]} onClick={() => handleClick(i)} />;
+    return <Square value={squares[i]} onClick={() => onClick(i)} />;
   };
-
-  const winner = calculateWinner(squares.squares);
-  const status = `${winner ? `Выиграл: ${winner}` : `Следующий ход: ${squares.xIsNext ? 'X' : '0'}`}`;
 
   return (
     <>
-      <div className="status">{status}</div>
       <div className="board-row">
         {renderSquare(0)}
         {renderSquare(1)}

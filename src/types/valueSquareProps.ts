@@ -1,5 +1,5 @@
 type ValueSquareProps = {
-  value: number;
+  value: string;
   onClick: () => void;
 };
 
