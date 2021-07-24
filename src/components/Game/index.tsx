@@ -3,10 +3,10 @@ import calculateWinner from '../../utils/utils';
 import Board from '../Board';
 
 const Game = (): JSX.Element => {
-  const [state, setState] = useState({ history: [{ squares: Array(9).fill('') }], xIsNext: true });
+  const [state, setState] = useState({ history: [{ squares: Array(9).fill('') }], stepNumber: 0, xIsNext: true });
 
   const handleClick = (i: number) => {
-    const { history } = state;
+    const history = state.history.slice(0, state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
@@ -14,12 +14,33 @@ const Game = (): JSX.Element => {
       return;
     }
     squares[i] = state.xIsNext ? 'X' : '0';
-    setState({ history: history.concat([{ squares }]), xIsNext: !state.xIsNext });
+    setState({ history: history.concat([{ squares }]), stepNumber: history.length, xIsNext: !state.xIsNext });
+  };
+
+  const jumpTo = (step: number) => {
+    const { history } = state;
+    setState({
+      history,
+      stepNumber: step,
+      xIsNext: step % 2 === 0,
+    });
   };
 
   const { history } = state;
-  const current = history[history.length - 1];
+  const current = history[state.stepNumber];
   const winner = calculateWinner(current.squares);
+
+  const moves = history.map((step, move) => {
+    const desc = move ? `Перейти к ходу #${move}` : 'К началу игры';
+    return (
+      <li key={desc}>
+        <button onClick={() => jumpTo(move)} type="button">
+          {desc}
+        </button>
+      </li>
+    );
+  });
+
   const status = `${winner ? `Winner: ${winner}` : `Next player: ${state.xIsNext ? 'X' : 'O'}`}`;
 
   return (
@@ -29,7 +50,7 @@ const Game = (): JSX.Element => {
       </div>
       <div className="game-info">
         <div>{status}</div>
-        <ol>{/* TODO */}</ol>
+        <ol>{moves}</ol>
       </div>
     </div>
   );
