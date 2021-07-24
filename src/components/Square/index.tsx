@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ValueSquareProps from '../../types/valueSquareProps';
 
-const Square = ({ value }: ValueSquareProps): JSX.Element => {
-  const [stateValue, setStateValue] = useState({ value: '' });
-
+const Square = ({ value, onClick }: ValueSquareProps): JSX.Element => {
   return (
-    <button className="square" type="button" onClick={() => setStateValue({ value: 'X' })}>
-      {stateValue.value}
+    <button className="square" type="button" onClick={() => onClick()}>
+      {value}
     </button>
   );
 };
