@@ -8,23 +8,23 @@ const Board = ({ squares, onClick }: SquaresBoardProps): JSX.Element => {
   };
 
   return (
-    <>
-      <div className="board-row">
+    <div className="board">
+      <div className="board__row">
         {renderSquare(0)}
         {renderSquare(1)}
         {renderSquare(2)}
       </div>
-      <div className="board-row">
+      <div className="board__row">
         {renderSquare(3)}
         {renderSquare(4)}
         {renderSquare(5)}
       </div>
-      <div className="board-row">
+      <div className="board__row">
         {renderSquare(6)}
         {renderSquare(7)}
         {renderSquare(8)}
       </div>
-    </>
+    </div>
   );
 };
 

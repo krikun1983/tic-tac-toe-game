@@ -1,0 +1,25 @@
+@import "variables";
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 20px;
+  font: 14px "Century Gothic", Futura, sans-serif;
+  min-width:100%;
+  height:100%;
+  background-color: $blue-pale;
+  background: url('./../images/fon.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+  background-size: cover;
+}
+
+li {
+  list-style: none;
+}

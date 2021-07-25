@@ -33,8 +33,8 @@ const Game = (): JSX.Element => {
   const moves = history.map((step, move) => {
     const desc = move ? `Перейти к ходу #${move}` : 'К началу игры';
     return (
-      <li key={desc}>
-        <button onClick={() => jumpTo(move)} type="button">
+      <li className="moves__item" key={desc}>
+        <button className="moves__btn" onClick={() => jumpTo(move)} type="button">
           {desc}
         </button>
       </li>
@@ -49,8 +49,8 @@ const Game = (): JSX.Element => {
         <Board squares={current.squares} onClick={(i: number) => handleClick(i)} />
       </div>
       <div className="game-info">
-        <div>{status}</div>
-        <ol>{moves}</ol>
+        <div className={`status ${winner ? 'status__winner' : ''}`}>{status}</div>
+        <ol className={`moves ${winner ? 'winner-end' : ''}`}>{moves}</ol>
       </div>
     </div>
   );

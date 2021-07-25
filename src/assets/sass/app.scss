@@ -1,0 +1,84 @@
+@import "basic";
+@import "variables";
+@import "mixines";
+
+.game {
+  @include flex-block-column();
+  margin: 0 auto;
+}
+
+.game-info {
+  @include flex-block-column();
+  margin-left: 0px;
+}
+
+.board {
+  border: 3px solid $blue-bright;
+  border-radius: 3px;
+
+  &__row:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+}
+
+.square {
+  float: left;
+  width: 90px;
+  height: 90px;
+  font-size: 46px;
+  line-height: 50px;
+  text-align: center;
+  font-weight: bold;
+  border: 2px solid $blue-dull;
+  background-color: $white;
+
+  &:hover {
+    background-color: $blue-pale;
+  }
+}
+
+.status {
+  margin: 10px 0;
+  font-size: 32px;
+  line-height: 36px;
+  color: $white;
+
+  &__winner {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: $winner;
+  }
+}
+
+.moves {
+  counter-reset: myCounter;
+  font-weight: bold;
+
+  &__item {
+    display: flex;
+    width: 200px;
+
+    &:before {
+      @include flex-block-center();
+      flex-grow: 1;
+      padding: 4px 10px;
+      counter-increment: myCounter;
+      content: counter(myCounter);
+      color: $blue-bright;
+      border: 1px solid $blue-dull;
+      background-color: $blue-pale;
+    }
+  }
+
+  &__btn {
+    width: 80%;
+    cursor: pointer;
+    padding: 10px;
+    color: $white;
+    font-weight: bold;
+    border: 1px solid $blue-dull;
+    background-color: $blue-bright;
+  }
+}

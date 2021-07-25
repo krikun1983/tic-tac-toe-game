@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Game from './components/Game';
-import './app.scss';
+import './assets/sass/app.scss';
 
 const App = (): JSX.Element => (
   <>
