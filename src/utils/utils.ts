@@ -1,4 +1,6 @@
-const calculateWinner = (squares: string[]): string | null => {
+import SquaresLinesGameStop from '../types/squaresLinesGameStop';
+
+const calculateWinner = (squares: string[]): SquaresLinesGameStop | null => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -12,7 +14,7 @@ const calculateWinner = (squares: string[]): string | null => {
   for (let i = 0; i < lines.length; i += 1) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return { squares: squares[a], lines: lines[i] };
     }
   }
   return null;

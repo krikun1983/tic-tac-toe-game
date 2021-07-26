@@ -5,12 +5,20 @@ import Board from '../Board';
 const Game = (): JSX.Element => {
   const [state, setState] = useState({ history: [{ squares: Array(9).fill('') }], stepNumber: 0, xIsNext: true });
 
+  const getWinner = () => {
+    const { history } = state;
+    const current = history[state.stepNumber];
+    const winner = calculateWinner(current.squares);
+    const linesWinner = winner ? calculateWinner(current.squares)?.lines : null;
+    return linesWinner;
+  };
+
   const handleClick = (i: number) => {
     const history = state.history.slice(0, state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-
-    if (calculateWinner(squares) || squares[i]) {
+    console.log(getWinner());
+    if (calculateWinner(squares)?.squares || squares[i]) {
       return;
     }
     squares[i] = state.xIsNext ? 'X' : '0';
@@ -41,16 +49,17 @@ const Game = (): JSX.Element => {
     );
   });
 
-  const status = `${winner ? `Winner: ${winner}` : `Next player: ${state.xIsNext ? 'X' : 'O'}`}`;
+  const status = `${winner?.squares ? `Winner: ${winner.squares}` : `Next player: ${state.xIsNext ? 'X' : 'O'}`}`;
 
   return (
     <div className="game">
+      <h1 className="heading">Tic-tac-toe game</h1>
       <div className="game-board">
         <Board squares={current.squares} onClick={(i: number) => handleClick(i)} />
       </div>
       <div className="game-info">
-        <div className={`status ${winner ? 'status__winner' : ''}`}>{status}</div>
-        <ol className={`moves ${winner ? 'winner-end' : ''}`}>{moves}</ol>
+        <div className={`status ${winner?.squares ? 'status__winner' : ''}`}>{status}</div>
+        <ol className="moves">{moves}</ol>
       </div>
     </div>
   );

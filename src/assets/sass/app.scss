@@ -2,6 +2,11 @@
 @import "variables";
 @import "mixines";
 
+.heading {
+  margin: 10px 0;
+  color: $winner;
+}
+
 .game {
   @include flex-block-column();
   margin: 0 auto;
