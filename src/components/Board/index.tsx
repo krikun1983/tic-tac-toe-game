@@ -2,9 +2,17 @@ import React from 'react';
 import SquaresBoardProps from '../../types/squaresBoardProps';
 import Square from '../Square';
 
-const Board = ({ squares, onClick }: SquaresBoardProps): JSX.Element => {
+const Board = ({ squares, onClick, winner }: SquaresBoardProps): JSX.Element => {
   const renderSquare = (i: number) => {
-    return <Square value={squares[i]} onClick={() => onClick(i)} />;
+    let result = false;
+    if (winner) {
+      winner.forEach((item: number) => {
+        if (item === i) {
+          result = true;
+        }
+      });
+    }
+    return <Square value={squares[i]} onClick={() => onClick(i)} result={result} />;
   };
 
   return (
